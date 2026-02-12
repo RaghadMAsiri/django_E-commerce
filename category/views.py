@@ -1,21 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
+from .models import Category 
+
 # Create your views here.
+# categories = [
+#         {"id": 1, "name": "Electronics"},
+#         {"id": 2, "name": "Clothes"},
+#         {"id": 3, "name": "Books"},
+#         {"id": 4, "name": "Sports"},
+#         {"id": 5, "name": "Home"},
+#     ]
+
 
 def index(request):
 
-    categories = [
-        {"id": 1, "name": "Electronics"},
-        {"id": 2, "name": "Clothes"},
-        {"id": 3, "name": "Books"},
-        {"id": 4, "name": "Sports"},
-        {"id": 5, "name": "Home"},
-    ]
+    categories = Category.objects.all()
 
 
     context={
-        'cat': categories
+        'cat':categories
     }
 
     return render (request,'category/index.html',context)
