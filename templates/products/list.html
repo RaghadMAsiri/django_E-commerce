@@ -23,7 +23,7 @@
 
     .product-card:hover {
         transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1) !important;
     }
 
     .price-tag {
@@ -64,27 +64,55 @@
     <p class="lead opacity-75">تم العثور على {{ products|length }} منتجات</p>
 </div>
 
+<!-- <div>
+    <h1 class="text-center "><span>{{request.session.m}}</span></h1>
+    <h1 class="text-center "><span>{{request.session.price}}</span></h1>
+    <h1 class="text-center "><span>{{request.session.value}}</span></h1>
+    <h1 class="text-center "><span>{{request.COOKIES.user}}</span></h1>
+
+</div> -->
+
+<form method="GET" action="{% url 'list' %}">
+    <div class="row p-5">
+        <div class="col">
+            <input type="text" name="search" class="form-control" placeholder="بحث">
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-success">Search</button>
+        </div>
+    </div>
+</form>
+
 <div class="container mb-5">
     <div class="row g-4">
         {% for product in prod %}
         <div class="col-md-4 col-lg-3">
-          <div class="card product-card shadow-sm h-100 overflow-hidden">
-    <div style="height: 200px; overflow: hidden;">
-        <img src="{{ product.image }}" class="card-img-top w-100 h-100" style="object-fit: cover;" alt="{{ product.name }}">
-    </div>
+            <div class="card product-card shadow-sm h-100 overflow-hidden">
+                <div style="height: 200px; overflow: hidden;">
+                    <img src="{{ product.image }}" class="card-img-top w-100 h-100" style="object-fit: cover;"
+                        alt="{{ product.name }}">
+                </div>
 
-    <div class="card-body text-center d-flex flex-column">
-        <h5 class="card-title fw-bold text-dark mb-2">{{ product.name }}</h5>
-        
-        <div class="mb-3 mt-auto">
-            <span class="price-tag d-block text-primary fs-4 fw-bold">{{ product.price }} ر.س</span>
-        </div>
 
-        <button class="btn btn-primary btn-buy w-100 py-2">
-            إضافة للسلة
-        </button>
-    </div>
-</div>
+
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title fw-bold text-dark mb-2">{{ product.name }}</h5>
+
+                    <div class="mb-3 mt-auto">
+                        <span class="price-tag d-block text-primary fs-4 fw-bold">{{ product.price }} ر.س</span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success btn-success w-100 py-2">
+                            تفاصيل
+                        </button>
+                        <a class="btn btn-primary btn-buy w-100 py-2" href="{% url 'add_to_cart' %}">
+                            إضافة للسلة
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         </div>
         {% empty %}
         <div class="col-12 text-center py-5">

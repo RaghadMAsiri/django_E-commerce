@@ -13,13 +13,33 @@ from .models import Category
 #     ]
 
 
+y= 100
 def index(request):
 
+    request.session['price']=1000
+    request.session["m"]= "شهر مبارك "
+    
+    
     categories = Category.objects.all()
+    print(categories)
 
 
+    x=50
     context={
         'cat':categories
+        
     }
 
-    return render (request,'category/index.html',context)
+   
+    response=render (request,'category/index.html',context)
+    response.set_cookie(
+        key='user',
+        value='raghad',
+        max_age=3600
+    )
+    return response
+    
+def get_name(request):
+    print(y)
+
+

@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.template import loader
+from .models import Product
 # Create your views here.
 
 # def list(request):
@@ -45,21 +47,70 @@ from django.template import loader
 
 #     return render(request,'products/list.html',context)
 
+# def list(request):
+   
+   
+
+
+#     cat_id=request.GET.get('category_id')
+
+#     if cat_id:
+#         filterd_products=[p for p in products if p["category_id"]==int(cat_id)]
+#     else:
+#         filterd_products=products
+
+#     context={
+#     'prod':filterd_products
+#     }
+
+
+#     return render(request,'products/list.html',context)
+#-----------------1---------------
+# def list(request):
+#     product = Product.objects.all()
+    
+#     context={
+#         'prod': product
+#     }
+    
+#     return render (request,"products/list.html",context)
+
 def list(request):
-   
-   
 
+     print(request.session['m'])
+     tax=request.session['price']
+     request.session['value']='welcome'
+     tax=tax+(tax*(0.15))
+     request.session['price']=tax
+     user = request.COOKIES.get('user')
+     print(user)
+     cat_id=request.GET.get('category_id')
+    
+     if cat_id:
+        f_product=Product.objects.filter(Category_id=cat_id)
+     else:
+        f_product=Product.objects.all()
+        
+        
+        
+        
+     search_word = request.GET.get('search')
+     if search_word:
+        f_product = f_product.filter(name__icontains=search_word)
 
-    cat_id=request.GET.get('category_id')
-
-    if cat_id:
-        filterd_products=[p for p in products if p["category_id"]==int(cat_id)]
-    else:
-        filterd_products=products
-
-    context={
-    'prod':filterd_products
+     context = {
+        'prod': f_product,
+       
     }
+    
+     return render(request, "products/list.html", context)
+   
 
 
-    return render(request,'products/list.html',context)
+def search(request):
+    search_product=Product.objects.all()
+    
+
+def add_to_cart(request):
+    request.session['cart_counter']=10
+    return redirect(request.META.get('HTTP_REFERER', '/'))
