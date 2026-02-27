@@ -1,11 +1,33 @@
 from django.db import models
 from category.models import Category
+
 # Create your models here.
+
+
 class Product(models.Model):
     name=models.CharField(max_length=50)
     price=models.DecimalField(max_digits=10,decimal_places=5)
     image_url=models.URLField(max_length=500)
     Category=models.ForeignKey(Category,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
     
+class ProductDetail(models.Model):
+    description=models.TextField()
+    brand=models.CharField(max_length=100)
+    stock=models.IntegerField(default=0)
+    product=models.OneToOneField(Product,on_delete=models.CASCADE,related_name='details')
+
+    def __str__(self):
+        return self.brand
+    
+# --------------ex:11-----------------
+class Contact(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+
     def __str__(self):
         return self.name

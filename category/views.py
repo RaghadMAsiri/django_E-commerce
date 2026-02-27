@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
-from .models import Category 
+from .models import Category
 
 # Create your views here.
-# categories = [
+
+# def index(request):
+    
+#     categories = [
 #         {"id": 1, "name": "Electronics"},
 #         {"id": 2, "name": "Clothes"},
 #         {"id": 3, "name": "Books"},
@@ -12,34 +15,38 @@ from .models import Category
 #         {"id": 5, "name": "Home"},
 #     ]
 
+#     context={
+#         'cat':categories
+#     }
 
-y= 100
+#     return render(request,'category/index.html',context)
+
+y=100 #gloobal
+
+
 def index(request):
-
     request.session['price']=1000
-    request.session["m"]= "شهر مبارك "
-    
-    
-    categories = Category.objects.all()
+    request.session['m']="شهر مبارك"
+    categories=Category.objects.all()
     print(categories)
-
-
-    x=50
     context={
-        'cat':categories
-        
+        'cat':categories,
+       
     }
 
-   
-    response=render (request,'category/index.html',context)
+    x=10  # Local
+
+    response= render(request,'category/index.html',context)
     response.set_cookie(
-        key='user',
-        value='raghad',
-        max_age=3600
+        key="user",
+        value="saad",
+        max_age=172800
     )
     return response
-    
+
+
 def get_name(request):
     print(y)
+
 
 

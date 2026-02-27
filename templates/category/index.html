@@ -22,15 +22,14 @@
 
     .category-card:hover {
         transform: translateY(-12px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
     }
 
     .category-icon-circle {
         width: 70px;
         height: 70px;
         background: #f8f9fa;
-        border-radius: 15px;
-        /* شكل مربع بزوايا ناعمة */
+        border-radius: 15px; /* شكل مربع بزوايا ناعمة */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,29 +56,25 @@
     <h1 class="display-4 fw-bold">استكشف أقسامنا</h1>
     <p class="lead opacity-75">تصفح المنتجات حسب الفئة المختارة</p>
 </div>
-
-<div>
-    <h1 class="text-center "><span>{{request.session.m}}</span></h1>
-    <h1 class="text-center "><span>{{request.session.price}}</span></h1>
-    <h1 class="text-center "><span>{{request.session.value}}</span></h1>
-    <h1 class="text-center "><span>{{request.COOKIES.user}}</span></h1>
-</div>
-
+    <h1 class="text-center ">{{request.session.m}}</h1>
+     <h1 class="text-center ">{{request.session.price}}</h1>
+      <h1 class="text-center ">{{request.session.value}}</h1>
+     <h1 class="text-center ">{{request.COOKIES.user}}</h1>
 <div class="container">
     <div class="row g-4 justify-content-center">
         {% for category in cat %}
         <div class="col-md-4 col-lg-3">
             <div class="card category-card shadow-sm p-4 text-center h-100">
                 <div class="category-icon-circle shadow-sm">
-                    <span class="fw-bold">{{ category.name|slice:":1" }}</span>
+                    <span class="fw-bold">{{ category.name|slice:":1" }}</span> 
                 </div>
-
+                
                 <h4 class="card-title fw-bold mb-3 text-dark">{{ category.name }}</h4>
-
+                
                 <p class="text-muted small mb-4">اكتشف أفضل العروض في قسم {{ category.name }}</p>
-
+                
                 <div class="mt-auto">
-                   <a href="{% url 'list' %}?category_id={{ category.id }}" class="btn btn-primary btn-custom w-100">
+                    <a href="{% url 'list' %}?category_id={{ category.id }}" class="btn btn-primary btn-custom w-100">
                         تصفح الآن
                     </a>
                 </div>
